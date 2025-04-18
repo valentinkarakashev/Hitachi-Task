@@ -27,6 +27,9 @@ namespace Hitachi_Task
                     int startRow = 0;
                     int startColumn = 0;
 
+                    int countS = 0;
+                    int countF = 0;
+
                     for (int row = 0; row < rows; row++)
                     {
                         string[] symbols = Console.ReadLine().Split(" ").ToArray();
@@ -46,6 +49,22 @@ namespace Hitachi_Task
                             {
                                 startRow = row;
                                 startColumn = col;
+                                countS++;
+                            }
+
+                            if (symbols[col] == "F")
+                            {
+                                countF++;
+                            }
+
+                            if (countS > 1 || countF > 1)
+                            {
+                                throw new ArgumentException("You can only use 'S' or 'F' once!");
+                            }
+
+                            if (symbols[col] != "S" && symbols[col] != "X" && symbols[col] != "O" && symbols[col] != "F")
+                            {
+                                throw new ArgumentException("You can use only 'S', 'X' or 'O' in the matrix!");
                             }
 
                             matrix[row, col] = symbols[col];
@@ -67,7 +86,7 @@ namespace Hitachi_Task
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"{ex.Message} Try again!");
+                    Console.WriteLine($"{ex.Message} Start over!");
                 }
             }        
         }
