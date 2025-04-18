@@ -10,7 +10,6 @@ namespace Hitachi_Task
         static int pathLength = 1;
         static void Main(string[] args)
         {
-            //EH
             bool success = false;
 
             while (!success)
@@ -33,7 +32,7 @@ namespace Hitachi_Task
                     for (int row = 0; row < rows; row++)
                     {
                         string[] symbols = Console.ReadLine().Split(" ").ToArray();
-                        //EH - expes S O X
+
                         while (symbols.Length != columns)
                         {
                             if (symbols.Length != columns)
@@ -93,7 +92,6 @@ namespace Hitachi_Task
 
         static void CountPaths(int startRow, int startColumn, int rows, int columns, string[,] matrix, bool[,] visited)
         {
-            // Проверки: извън граници, препятствие, вече посетено
             if (startRow < 0 || startRow >= rows || startColumn < 0 || startColumn >= columns)
             {
                 return;
@@ -104,23 +102,20 @@ namespace Hitachi_Task
                 return;
             }
 
-            // Ако сме стигнали до 'F' – намерен е път
             if (matrix[startRow, startColumn] == "F")
             {
                 possiblePaths++;
                 return;
             }
 
-            // Маркираме клетката като посетена
             visited[startRow, startColumn] = true;
 
             //right = row, col + 1;  left = row, col - 1;  up = row - 1, col;  down = row + 1, col
-            CountPaths(startRow - 1, startColumn, rows, columns, matrix, visited); // нагоре
-            CountPaths(startRow + 1, startColumn, rows, columns, matrix, visited); // надолу
-            CountPaths(startRow, startColumn - 1, rows, columns, matrix, visited); // наляво
-            CountPaths(startRow, startColumn + 1, rows, columns, matrix, visited); // надясно
+            CountPaths(startRow - 1, startColumn, rows, columns, matrix, visited); // up
+            CountPaths(startRow + 1, startColumn, rows, columns, matrix, visited); // down
+            CountPaths(startRow, startColumn - 1, rows, columns, matrix, visited); // left
+            CountPaths(startRow, startColumn + 1, rows, columns, matrix, visited); // right
 
-            // Отмаркираме клетката (за следващи пътища)
             visited[startRow, startColumn] = false;
         }
 
